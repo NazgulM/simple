@@ -9,25 +9,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x' # Specify the desired Python version here
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+      # Other steps for building and testing the app
 
-    - name: Build Docker image
-      run: docker build -t nurbakar/hello-app:${GITHUB_SHA} -f Dockerfile .
+      - name: Log in to Docker Hub
+        run: echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Log in to Docker Hub
-      run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Build Docker image
+        run: docker build -t my-flask-app:${GITHUB_SHA} -f Dockerfile .
 
-    - name: Push Docker image
-      run: docker push my-flask-app:${GITHUB_SHA}
+      - name: Push Docker image
+        run: docker push my-flask-app:${GITHUB_SHA}
 
-    - name: Deploy to Kubernetes
-      run: kubectl apply -f kubernetes.yaml
+      - name: Deploy to Kubernetes
+        run: kubectl apply -f kubernetes.yaml
