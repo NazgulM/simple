@@ -1,0 +1,35 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x' # Specify the desired Python version here
+
+      # Other steps for building and testing the app
+
+      - name: Log in to Docker Hub
+        run: echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: docker build -t nurbakar/hello-app:${GITHUB_SHA} -f Dockerfile .
+
+      - name: Push Docker image
+        run: docker push nurbakar/hello-app:${GITHUB_SHA}
+
+      - name: Deploy to Kubernetes
+        run: kubectl apply -f kubernetes.yaml
