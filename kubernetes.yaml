@@ -22,7 +22,7 @@ metadata:
 spec:
   containers:
   - name: hello
-    image: nurbakar/hellap:2.0
+    image: nurbakar/hello-app:675323e21475dcc13eb9c0ad40fd2e66dc4e1ba8
     ports:
     - containerPort: 5000
 
