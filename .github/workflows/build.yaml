@@ -16,6 +16,14 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x' # Specify the desired Python version here
+          
+      - name: Install the GCloud CLI
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: ${{ secrets.GOOGLE_PROJECT }}
+          # service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          export_default_credential: true
+          
 
       # Other steps for building and testing the app
 
@@ -30,6 +38,3 @@ jobs:
 
       - name: Push Docker image
         run: docker push nurbakar/hello-app:${GITHUB_SHA}
-
-      - name: Deploy to Kubernetes
-        run: kubectl apply -f kubernetes.yaml
