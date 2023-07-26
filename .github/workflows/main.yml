@@ -21,7 +21,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Build Docker image
-      run: docker build -t my-flask-app:${GITHUB_SHA} -f Dockerfile .
+      run: docker build -t nurbakar/hello-app:${GITHUB_SHA} -f Dockerfile .
 
     - name: Log in to Docker Hub
       run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
