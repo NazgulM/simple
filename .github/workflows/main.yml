@@ -26,10 +26,10 @@ jobs:
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t hello-app:${GITHUB_SHA} -f Dockerfile .
+        run: docker build -t nurbakar/hello-app:${GITHUB_SHA} -f Dockerfile .
 
       - name: Push Docker image
-        run: docker push hello-app:${GITHUB_SHA}
+        run: docker push nurbakar/hello-app:${GITHUB_SHA}
 
       - name: Deploy to Kubernetes
         run: kubectl apply -f kubernetes.yaml
