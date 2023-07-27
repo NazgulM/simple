@@ -45,6 +45,7 @@ jobs:
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         run:
           gcloud container clusters get-credentials project --zone us-central1-c
-          
+          gcloud config set project $GOOGLE_PROJECT
+          kubectl config use-context gke_${GOOGLE_PROJECT_us-central1-c_project
           kubectl apply -f kubernetes.yaml
           
