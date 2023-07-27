@@ -22,7 +22,7 @@ metadata:
 spec:
   containers:
   - name: hello
-    image: ${DOCKERHUB_USERNAME}/hello-app:${GITHUB_SHA}
+    image: nurbakar/hello-app:1.0
     ports:
     - containerPort: 5000
 
