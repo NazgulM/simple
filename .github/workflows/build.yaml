@@ -44,6 +44,6 @@ jobs:
         env: 
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         run:
-          gcloud container clusters get-credentials project --region us-central1
+          gcloud container clusters get-credentials project --zone us-central1-c
           kubectl apply -f kubernetes.yaml
           
