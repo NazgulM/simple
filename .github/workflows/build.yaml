@@ -21,7 +21,8 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GOOGLE_PROJECT }}
-          # service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          install_components: 'gke-gcloud-auth-plugin'
           export_default_credential: true
           
 
@@ -38,3 +39,11 @@ jobs:
 
       - name: Push Docker image
         run: docker push nurbakar/hello-app:${GITHUB_SHA}
+        
+      - name: Deploy to GKE
+        env: 
+          GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+        run:
+          gcloud container clusters get-credentials project --region us-central1
+          kubectl apply -f kubernetes.yaml
+          
