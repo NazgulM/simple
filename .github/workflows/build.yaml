@@ -45,5 +45,5 @@ jobs:
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         run:
           gcloud container clusters get-credentials project --zone us-central1-c
-          gcloud config set project $GOOGLE_PROJECT
+           sed -i "s/DOCKERHUB_USERNAME/$DOCKERHUB_USERNAME/g"
           kubectl apply -f kubernetes.yaml
