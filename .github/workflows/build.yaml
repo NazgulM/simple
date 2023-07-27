@@ -43,7 +43,7 @@ jobs:
       - name: Deploy to GKE
         env: 
           GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
-        run:
+        run: |-
           gcloud container clusters get-credentials project --zone us-central1-c
-           sed -i "s/DOCKERHUB_USERNAME/$DOCKERHUB_USERNAME/g"
           kubectl apply -f kubernetes.yaml
+          kubectl get pods
