@@ -22,7 +22,7 @@ metadata:
 spec:
   containers:
   - name: hello
-    image: nurbakar/umh:1.0
+    image: nurbakar/umh:2.0
     ports:
     - containerPort: 5000
 
