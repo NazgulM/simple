@@ -35,10 +35,10 @@ jobs:
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t nurbakar/umh:1.0 -f Dockerfile .
+        run: docker build -t nurbakar/umh:2.0 -f Dockerfile .
 
       - name: Push Docker image
-        run: docker push nurbakar/umh:1.0
+        run: docker push nurbakar/umh:2.0
         
       - name: Deploy to GKE
         env: 
